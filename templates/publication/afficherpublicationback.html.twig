@@ -1,0 +1,124 @@
+{% extends 'base.html.twig' %}
+
+
+
+  {% block body %}
+
+    <div class="card">
+      <div class="d-flex align-items-end row">
+
+
+
+
+                <div class="row">
+
+                  <!-- Left side columns -->
+                  <div class="col-lg-8">
+                    <div class="row">
+
+
+                      <div class="col-12">
+
+
+
+                          <div class="card-body">
+                            <h5 class="card-title">La liste des publication </h5>
+                            <!--a type="button" href="{{ path('ajouterpublication') }}" class="btn btn-rounded btn-outline-info">Ajouter</a-->
+
+                            <input  id="myInput"  type="text" placeholder="search">
+                            <table class="table table-bordered" id="t"  width="100%" cellspacing="0">
+                              <thead>
+                              <tr>
+                                {#  <th class="text-center">Supprimer</th>
+                                    <th class="text-center">Modifier</th>#}
+                                <th  class="text-center"></th>
+                                <th class="text-center">User</th>
+                                <th class="text-center"> date reclamation</th>
+                                <th class="text-center">content</th>
+                                <th class="text-center">Actions</th>
+                                <th class="text-center">Comments</th>
+
+                              </tr>
+                              </thead>
+
+                              <tbody id="myTable">
+                              {% for i in tablepublication %}
+                                <tr>
+
+                                <tr>
+                                  {#  <td class="text-center"><a type="button" href="{{ path('supprimertransport', {'id': transport.id}) }}" class="btn btn-rounded btn-outline-danger">Supprimer</a></td>
+
+                                    <td class="text-center"><a type="button" href="{{ path('modifiertransport', {'id': transport.id}) }}" class="btn btn-rounded btn-outline-warning">Modifier</a></td>#}
+                                  <td>             <a href="{{ path('pdfpublication',{'id': i.id}) }}">  <img   width="30" src="https://cdn-icons-png.flaticon.com/512/337/337946.png">  </a>
+                                  </td>
+                                <td> {{ i.User  }} </td>
+
+                                <td>{{(i.date).format('d/m/Y')}}</td>
+                                  <td> {{ i.content  }} </td>
+
+                                  <td class="text-center"><a type="button" href="{{ path('supprimerpublicationback', {'id': i.id}) }}" class="btn btn-rounded btn-outline-danger">Supprimer</a>
+
+
+                                  </td>
+
+                                  <td>
+
+                                    {% for j in i.Comment %}
+                                      {{ j.content }}
+
+                                      <a  href="{{ path('deletecomment', {'id': j.id}) }}" >Supprimer</a>
+
+                                      <hr>
+                                    {% endfor %}
+
+                                  </td>
+
+
+                                </tr>
+
+
+                              {% endfor %}
+
+
+
+                              </tbody>
+                              <tbody id="search">
+                              </tbody>
+                            </table>
+                            {{ knp_pagination_render(tablepublication) }}
+
+                            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                            <script>
+                              $(document).ready(function(){
+                                $("#myInput").on("keyup", function() {
+                                  var value = $(this).val().toLowerCase();
+                                  $("#myTable tr").filter(function() {
+                                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                                  });
+                                });
+                              });
+                            </script>
+                          </div>
+
+                      </div><!-- End Recent Sales -->
+
+                      <!-- Top Selling -->
+
+
+
+
+
+                </div>
+
+
+
+
+
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  {% endblock %}

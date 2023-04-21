@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Mon PDF personnalisé</title>
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}" />
+</head>
+<body>
+
+
+<h1>Publication</h1>
+<h4>{{(pdf.date).format('d/m/Y')}}</h4>
+<div class="header">
+</div>
+<div class="content">
+    <p>Description : {{ pdf.content }}</p>
+</div>
+<div class="content">
+    <p>User : {{ pdf.user    }}</p>
+</div>
+<div class="footer">
+    <p>{{(pdf.date).format('d/m/Y')}}</p>
+</div>
+<div class="content">
+    <h2>Comments</h2>
+    {% for j in pdf.Comment %}
+        {{ j.content }}
+        <h4>{{(j.date).format('d/m/Y')}}</h4>
+
+
+        <hr>
+    {% endfor %}</div>
+
+
+</body>
+</html>
+
+<style>
+    body {
+        background-color: #f2f2f2;
+        font-family: Arial, sans-serif;
+    }
+
+    .header {
+        background-color: #008080;
+        color: #fff;
+        padding: 20px;
+    }
+
+    .content {
+        padding: 20px;
+    }
+
+    .footer {
+        background-color: #008080;
+        color: #fff;
+        padding: 10px;
+        text-align: center;
+        font-size: 12px;
+    }
+</style>
